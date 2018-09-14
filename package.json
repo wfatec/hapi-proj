@@ -1,0 +1,23 @@
+{
+  "name": "hapi-proj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wfatec/hapi-proj.git"
+  },
+  "author": "wfatec",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wfatec/hapi-proj/issues"
+  },
+  "homepage": "https://github.com/wfatec/hapi-proj#readme",
+  "dependencies": {
+    "hapi": "17.x.x"
+  }
+}
