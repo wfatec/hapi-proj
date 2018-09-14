@@ -21,11 +21,23 @@ server.route({
     path: '/{name}',
     handler: (request, h) => {
 
-        return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
+        // request.log(['a', 'name'], "Request name");
+        // or
+        request.logger.info('In handler %s', request.path);
+
+        return `Hello, ${encodeURIComponent(request.params.name)}!`;
     }
 });
 
 const init = async () => {
+
+    await server.register({
+        plugin: require('hapi-pino'),
+        options: {
+            prettyPrint: true,
+            logEvents: ['response']
+        }
+    });
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
