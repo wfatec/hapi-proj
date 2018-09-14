@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/wfatec/hapi-proj#readme",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "hapi": "17.x.x",
+    "hapi-auth-basic": "^5.0.0",
     "hapi-pino": "^5.1.0",
     "inert": "^5.1.0"
   }
