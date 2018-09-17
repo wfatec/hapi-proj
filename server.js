@@ -14,15 +14,16 @@ server.route([{
     method: 'GET',
     path: '/api/recipes',
     handler: function (request, h) {
-
-        db.all('SELECT * FROM recipes', (err, results) => {
-
-            if (err) {
-                throw err;
-            }
-
-            return h.response(results);
-        });
+        const q = new Promise((resolve)=>{
+            db.all('SELECT * FROM recipes', (err, results) => {  
+                if (err) {
+                    throw err;
+                }
+                resolve(results)
+            });
+        })
+        
+        return q
     }
 }]);
 
