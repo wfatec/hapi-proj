@@ -22,7 +22,7 @@ const init = async () => {
         validate: validateFunc,
     });
 
-    server.auth.default('simple');
+    // server.auth.default('simple');
 
     server.route(require('./routes'));
 
