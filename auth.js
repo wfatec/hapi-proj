@@ -1,9 +1,12 @@
-exports.api = async function(request, token, h){
+const Sqlite3 = require('sqlite3');
+
+exports.api = async (request, token, h) => {
 
     // here is where you validate your token
     // comparing with token from your database for example
-    new Promise((resolve)=>{
-        this.db.get(
+    return new Promise((resolve)=>{
+        const db = new Sqlite3.Database('./dindin.sqlite');
+        db.get(
             'SELECT * FROM users WHERE token = ?',
             [token],
             (err, result) => {
@@ -13,20 +16,20 @@ exports.api = async function(request, token, h){
                 resolve(result)
             }
         )
-        .then((user) => {
-            if (typeof user === 'undefined') {
-                return { isValid: false };
-            } else {
-                const isValid = true;
-                
-                const credentials = { token };
-                const artifacts = { 
-                    id: user.id,
-                    username: user.username
-                };
+    })
+    .then((user) => {
+        if (typeof user === 'undefined') {
+            return { isValid: false };
+        } else {
+            const isValid = true;
             
-                return { isValid, credentials, artifacts };
-        })
-    }
-    
+            const credentials = { token };
+            const artifacts = { 
+                id: user.id,
+                username: user.username
+            };
+        
+            return { isValid, credentials, artifacts };
+        }
+    })
 }
