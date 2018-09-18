@@ -21,6 +21,7 @@
     "bcrypt": "^3.0.0",
     "hapi": "17.x.x",
     "hapi-auth-basic": "^5.0.0",
+    "hapi-auth-bearer-token": "^6.1.0",
     "hapi-pino": "^5.1.0",
     "inert": "^5.1.0",
     "sqlite3": "^4.0.2"
