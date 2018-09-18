@@ -1,10 +1,9 @@
 'use strict';
 
 const Hapi = require('hapi');
-const Sqlite3 = require('sqlite3');
 const AuthBearer = require('hapi-auth-bearer-token');
 
-const db = new Sqlite3.Database('./dindin.sqlite');
+const db = require('./db');
 const validateFunc = require('./auth').api;
 
 const server = Hapi.server({

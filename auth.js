@@ -1,11 +1,10 @@
-const Sqlite3 = require('sqlite3');
+const db = require('./db');
 
 exports.api = async (request, token, h) => {
 
     // here is where you validate your token
     // comparing with token from your database for example
     return new Promise((resolve)=>{
-        const db = new Sqlite3.Database('./dindin.sqlite');
         db.get(
             'SELECT * FROM users WHERE token = ?',
             [token],
