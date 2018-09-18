@@ -10,58 +10,9 @@ const server = Hapi.server({
     host: 'localhost'
 });
 
-server.route([{
-    method: 'GET',
-    path: '/api/recipes',
-    handler: function (request, h) {
-        let sql = 'SELECT * FROM recipes';
-        const params = [];
+server.bind({ db : db });
 
-        if (request.query.cuisine) {
-            sql += ' WHERE cuisine = ?';
-            params.push(request.query.cuisine);
-        }
-
-        return new Promise((resolve)=>{
-            db.all(
-                sql,
-                params,
-                (err, results) => {  
-                    if (err) {
-                        throw err;
-                    }
-                    resolve(results)
-                }
-            );
-        })
-    }
-},{
-    method: 'GET',
-    path: '/api/recipes/{id}',
-    handler: function (request, h) {
-        return new Promise((resolve)=>{
-            db.get(
-                'SELECT * FROM recipes WHERE id = ?',
-                [request.params.id],
-                (err, results) => {
-
-                    if (err) {
-                        throw err;
-                    }
-
-                    resolve(results);
-                }
-            );
-        })
-        .then((results) => {
-            if (typeof results !== 'undefined') {
-                return results;
-            } else {
-                return h.response('Not found!').code(404)
-            }
-        })
-    }
-}]);
+server.route(require('./routes'));
 
 const init = async () => {
     await server.start();
