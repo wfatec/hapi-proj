@@ -24,6 +24,7 @@
     "hapi-auth-bearer-token": "^6.1.0",
     "hapi-pino": "^5.1.0",
     "inert": "^5.1.0",
-    "sqlite3": "^4.0.2"
+    "sqlite3": "^4.0.2",
+    "vision": "^5.4.0"
   }
 }

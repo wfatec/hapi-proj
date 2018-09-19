@@ -1,6 +1,8 @@
 'use strict';
 
 const Hapi = require('hapi');
+const Inert = require('inert');
+const Path = require('path');
 const AuthBearer = require('hapi-auth-bearer-token');
 
 const db = require('./db');
@@ -8,14 +10,19 @@ const validateFunc = require('./auth').api;
 
 const server = Hapi.server({
     port: 3000,
-    host: 'localhost'
+    host: 'localhost',
+    // routes: {
+    //     files: {
+    //         relativeTo: Path.join(__dirname, 'public')
+    //     }
+    // }
 });
 
 const init = async () => {
 
     server.bind({ db : db });
 
-    await server.register(AuthBearer)
+    await server.register([Inert,AuthBearer]);
     
     server.auth.strategy('simple', 'bearer-access-token', {
         allowQueryToken: true,              // optional, false by default
