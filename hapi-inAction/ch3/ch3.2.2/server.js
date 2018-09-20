@@ -3,8 +3,6 @@
 const Hapi = require('hapi');
 const Inert = require('inert');
 const Path = require('path');
-const Vision = require('vision');
-const Handlebars = require('handlebars');
 const AuthBearer = require('hapi-auth-bearer-token');
 
 const db = require('./db');
@@ -19,16 +17,7 @@ const init = async () => {
 
     server.bind({ db : db });
 
-    await server.register([Inert, AuthBearer, Vision]);
-
-    server.views({
-        engines: { 
-            hbs: Handlebars
-        },
-        relativeTo: __dirname,  // 所有路径相对于执行脚本所在的根目录
-        path: './views',
-        isCached: false  // 不缓存视图，而是在每次使用时重新加载(建议只在开发模式下使用)
-    })
+    await server.register([Inert, AuthBearer]);
     
     server.auth.strategy('api', 'bearer-access-token', {
         allowQueryToken: true,              // optional, false by default
