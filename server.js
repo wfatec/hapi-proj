@@ -15,11 +15,25 @@ const server = Hapi.server({
     host: 'localhost',
 });
 
+const plugin = {
+    name: 'my-simple-plugin',
+    version: '0.0.1',
+    register: async (server, options) => {
+        server.route({
+            method: 'GET',
+            path: '/myPlugin',
+            handler: (request, h) => {
+                return 'Welcome home!';
+            }
+        })
+    }
+}
+
 const init = async () => {
 
     server.bind({ db : db });
 
-    await server.register([Inert, AuthBearer, Vision]);
+    await server.register([Inert, AuthBearer, Vision, plugin]);
 
     server.views({
         engines: { 
